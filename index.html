@@ -6,7 +6,7 @@
     <title>Ada Pesan Buat Kamu! 🌿🌊</title>
     <style>
         /* ==========================================
-           1. WARNA TEMA & ATURAN LAYAR (BISA SCROLL)
+           1. WARNA TEMA & ATURAN LAYAR UTAMA (RESPONSIF & BISA SCROLL)
            ========================================== */
         :root {
             --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #ffdadc 100%);
@@ -32,11 +32,12 @@
             justify-content: center;
             align-items: center;
             padding: 20px 15px;
+            /* Mengizinkan scroll di body agar halaman panjang di Page 3 lancar diakses */
             overflow-y: auto; 
             overflow-x: hidden; 
         }
 
-        /* CONTAINER KOTAK PUTIH */
+        /* CONTAINER KOTAK PUTIH (ADJUSTABLE UNTUK LAPTOP & HP) */
         .container {
             max-width: 540px;
             width: 100%;
@@ -50,7 +51,7 @@
             border: 2px solid #fff;
             position: relative;
             transition: all 0.5s ease;
-            margin: auto;
+            margin: 20px auto; /* Memberi ruang atas bawah saat di-scroll */
         }
 
         .page {
@@ -84,9 +85,10 @@
             line-height: 1.6;
         }
 
+        /* Area Tombol */
         .btn-wrapper {
             position: relative;
-            min-height: 130px;
+            min-height: 130px; /* Ruang aman tombol menghindar */
             margin-top: 15px;
         }
 
@@ -132,6 +134,7 @@
             transition: all 0.15s ease-out;
         }
 
+        /* MEDIA FOTO & VIDEO */
         .media-gallery {
             margin: 20px 0;
             width: 100%;
@@ -168,6 +171,7 @@
             border-left: 5px solid var(--btn-romantic);
         }
 
+        /* DEKORASI */
         .decorations {
             position: fixed;
             pointer-events: none;
@@ -184,7 +188,7 @@
 
         /* AREA KUE UTAMAKAN SPACE */
         .cake-container {
-            margin: 75px 0 25px 0; /* Jarak pas agar gambar tidak menumpuk teks */
+            margin: 85px 0 25px 0; /* Ruang vertikal ekstra agar gambar Cry Baby tidak menabrak teks atas */
             position: relative;
             display: inline-block;
         }
@@ -238,24 +242,21 @@
 
     <div class="decorations" id="decorations-container"></div>
 
-    <!-- Pemutar Musik Berdasarkan Nama Asli Lagumu -->
     <audio id="backsound" loop preload="auto">
         <source src="2112 - Reality Club.mp3" type="audio/mpeg">
     </audio>
 
     <div class="container">
 
-        <!-- ================= HALAMAN 1 ================= -->
         <div id="page1" class="page active">
-            <h1>Halo Petualang Favoritku! 🌿🐾</h1>
-            <p>Aku nemu sesuatu yang menarik pas lagi 'jalan-jalan' digital tadi. Tapi sebelum aku buka jendelanya, kamu harus janji dulu buat dengerin sampai akhir. Mau kan?</p>
+            <h1>Halo Perempuan Favoritku! 🌿🐾</h1>
+            <p>Aku punya sesuatu yang menarik banget buat kamu dan semoga kamu suka yaa. Tapi sebelum aku kasih lihat, kamu harus janji dulu buat dengerin sampai akhir. Mau kan?</p>
             <div class="btn-wrapper" id="wrapper-p1">
                 <button class="btn btn-love" onclick="nextPage(2)">Mau Banget! ✨</button>
                 <button class="btn" id="btn-no" onmouseover="moveButton()" onclick="moveButton()">Gak, mau ngasih makan kucing aja 🐱</button>
             </div>
         </div>
 
-        <!-- ================= HALAMAN 2 ================= -->
         <div id="page2" class="page">
             <h2>Spesial buat Si Pencinta Alam & POP MART! 🧸🍃</h2>
             <p>Karena aku belum bisa bawa kamu ke puncak gunung atau pantai cantik hari ini, aku buatin kue virtual dulu. <br>
@@ -263,9 +264,8 @@
             <p style="font-size: 0.9rem; font-style: italic; color: #666; margin-bottom: 10px;">(Ketuk kuenya 3 kali buat tiup lilin dan menyalakan musiknya!)</p>
             
             <div class="cake-container">
-                <!-- MEMBACA FORMAT FILE .JPG JALUR RECOADING -->
-                <div style="position: absolute; top: -75px; left: 50%; transform: translateX(-50%); z-index: 5;">
-                    <img src="crybaby.png" alt="Cry Baby Ocean" style="width: 85px; height: auto; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.15);">
+                <div style="position: absolute; top: -75px; left: 50%; transform: translateX(-50%); z-index: 5; width: 85px;">
+                    <img src="crybaby.png" alt="Cry Baby Ocean" style="width: 100%; height: auto; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.15);">
                 </div>
                 
                 <div class="interactive-cake" onclick="tapCake()" id="cake-el">🎂</div>
@@ -273,7 +273,6 @@
             <h3 style="color: var(--btn-romantic); margin-top: 10px;" id="click-counter">Ketukan Lilin: 0/3</h3>
         </div>
 
-        <!-- ================= HALAMAN 3 ================= -->
         <div id="page3" class="page">
             <h1 id="main-title">Selamat Ulang Tahun, Sayang! ❤️</h1>
             <p style="font-style: italic; margin-bottom: 15px; font-size: 0.95rem;">Dari tempat paling indah di bumi, kamulah pemandangan favoritku. 🌌🌲</p>
@@ -282,16 +281,18 @@
                 <img src="foto_dia.jpg" alt="Foto Terbaik Kamu" class="photo-frame">
                 <video controls poster="foto_dia.jpg" id="video">
                     <source src="video_ucapan.mp4" type="video/mp4">
-                    Browser tidak mendukung pemutar video.
                 </video>
             </div>
 
             <div class="message-box">
                 <p>
-                    "Selamat ulang tahun untuk manusia paling baik yang dunianya penuh dengan cerita seru. Terima kasih ya sudah lahir ke bumi dan melangkah sejauh ini. Aku selalu kagum gimana kamu menikmati alam bebas, menyayangi kucing-kucing lucu di sekitar kita, dan senyum bahagia kamu tiap dapat koleksi POP MART baru."
+                    "Selamat ulang tahun sayangku cintaku duniaku. Kepala dua nih yeee sekarang, welcome to the jungle yaa lovee hehehe. ini jadi ulang tahun pertama kamu yang aku rayain yaa?? aku berharap banget, di ulang tahun kamu berikut-berikutnya nanti, aku masih jadi orang yang ada disamping kamu, yang selalu ngerayain kamu dengan penuh bahagia dan unpredictable maybe eheheh &hearts;"
                 </p>
                 <p style="margin-top: 10px;">
-                    "Semoga di usia yang baru ini, energimu gak pernah habis untuk menjelajahi tempat-tempat baru yang indah. Semoga harimu selalu manis senikmat cokelat dan blueberry segar. Di setiap perjalanan panjangmu ke depan, ingat ya kalau aku bakal selalu jadi rumah tempatmu pulang. Selamat merayakan hari jadimu, sayang. I love you."
+                    "Semoga dengan bertambahnya umur kamu, makin bertambah juga hal baik yang datang dari diri kamu sendiri ataupun yang datang ke kamu. semoga kamu semakin dewasa, semakin banyak energinya dan kesabarannya untuk ngadepin aku plenger ini wkwkwk. tetep jadi Zaskia Nanda Ardita yang pertama kali aku deketin sejak 5 November 2025 itu yaa. sekali lagi Happy Birthday My Beautiful Girl. *I LOVE U SO MUCH MORE ZASKIA NANDA ARDITA!!! &hearts; &hearts; &hearts;."
+                </p>
+                <p style="margin-top: 10px;">
+                    "last but not least, aku cuman mau bilang... kalo aku ngerasa beruntung banget karena kehadiran kamu di hidup aku, terima kasih sudah jadi \"Spark\" dalam hidup aku, terima kasih sudah mengisi hari hari aku yg flat ini jadi lebih berwarna. terima kasih sudah mau bersabar menghadapi segala tingkah aku. jangan pernah ada kata nyerah, capek, dan udahan lagi yaa deee. aku mau kamu jadi pelabuhan terakhir aku, tempat berlabuhnya kapal hati ini. aku mau kamu jadi layar kapal aku, yang kasih arah disetiap langkah aku, yang tetap bikin aku melaju walau angin dan badai menerjang, dan yang selalu jadi tujuan pertama, terakhir dan satu-satunya di setiap perjalanan hidup aku"
                 </p>
             </div>
 
@@ -301,7 +302,6 @@
 
     </div>
 
-    <!-- LOGIKA INTERAKTIF (JAVASCRIPT) -->
     <script>
         const audio = document.getElementById('backsound');
         const audioBtn = document.getElementById('audioBtn');
