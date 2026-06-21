@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ada Pesan Buat Kamu! 🌿🌊</title>
+    <style>
+        /* ==========================================
+           1. WARNA TEMA & ATURAN LAYAR (BISA SCROLL)
+           ========================================== */
+        :root {
+            --bg-gradient: linear-gradient(135deg, #e8f5e9 0%, #ffdadc 100%);
+            --card-bg: rgba(255, 255, 255, 0.92);
+            --text-color: #3e4a3e;
+            --accent-color: #ffb3c6;
+            --btn-color: #70a1ff;
+            --btn-romantic: #ff4d6d;
+            --btn-secondary: #8e978e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 15px;
+            overflow-y: auto; 
+            overflow-x: hidden; 
+        }
+
+        /* CONTAINER KOTAK PUTIH */
+        .container {
+            max-width: 540px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 35px 25px;
+            border-radius: 25px;
+            box-shadow: 0 15px 35px rgba(112, 161, 255, 0.15);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            text-align: center;
+            border: 2px solid #fff;
+            position: relative;
+            transition: all 0.5s ease;
+            margin: auto;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+            animation: fadeIn 0.6s ease forwards;
+        }
+
+        h1 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 1.9rem;
+            line-height: 1.3;
+            font-weight: 700;
+        }
+
+        h2 {
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-size: 1.55rem;
+            line-height: 1.3;
+        }
+
+        p {
+            font-size: 1.02rem;
+            color: var(--text-color);
+            margin-bottom: 25px;
+            line-height: 1.6;
+        }
+
+        .btn-wrapper {
+            position: relative;
+            min-height: 130px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            background-color: var(--btn-color);
+            color: white;
+            border: none;
+            padding: 12px 26px;
+            font-size: 1rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(112, 161, 255, 0.3);
+            margin: 8px;
+            display: inline-block;
+            touch-action: manipulation;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(112, 161, 255, 0.5);
+        }
+
+        .btn-love {
+            background-color: var(--btn-romantic);
+            box-shadow: 0 5px 15px rgba(255, 77, 109, 0.3);
+        }
+
+        .btn-love:hover {
+            background-color: #ff758f;
+        }
+
+        #btn-no {
+            background-color: var(--btn-secondary);
+            position: relative;
+            z-index: 10;
+        }
+
+        #btn-no.absolute {
+            position: absolute;
+            margin: 0;
+            transition: all 0.15s ease-out;
+        }
+
+        .media-gallery {
+            margin: 20px 0;
+            width: 100%;
+        }
+
+        .photo-frame {
+            width: 100%;
+            height: auto;
+            max-height: 280px;
+            object-fit: cover;
+            border-radius: 15px;
+            border: 4px solid #fff;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            margin-bottom: 15px;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            margin: 15px 0;
+            line-height: 1.7;
+            color: var(--text-color);
+            font-size: 1rem;
+            text-align: justify;
+            border-left: 5px solid var(--btn-romantic);
+        }
+
+        .decorations {
+            position: fixed;
+            pointer-events: none;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: 999;
+            overflow: hidden;
+        }
+
+        .floating-item {
+            position: absolute;
+            bottom: -50px;
+            animation: floatUp 6s linear infinite;
+        }
+
+        /* AREA KUE UTAMAKAN SPACE */
+        .cake-container {
+            margin: 75px 0 25px 0; /* Jarak pas agar gambar tidak menumpuk teks */
+            position: relative;
+            display: inline-block;
+        }
+
+        .interactive-cake {
+            font-size: 5rem;
+            cursor: pointer;
+            display: inline-block;
+            animation: pulse 1.5s infinite;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        /* ==========================================
+           2. MEDIA QUERIES UNTUK TAMPILAN HP
+           ========================================== */
+        @media screen and (max-width: 480px) {
+            body {
+                padding: 15px 10px;
+            }
+            .container {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+            h1 { font-size: 1.55rem; }
+            h2 { font-size: 1.3rem; }
+            p { font-size: 0.95rem; margin-bottom: 18px; }
+            .btn { padding: 10px 22px; font-size: 0.92rem; margin: 4px; }
+            .message-box { padding: 15px; font-size: 0.92rem; }
+            .interactive-cake { font-size: 4.2rem; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(-100vh) rotate(30deg); opacity: 0; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.06); }
+            100% { transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="decorations" id="decorations-container"></div>
+
+    <!-- Pemutar Musik Berdasarkan Nama Asli Lagumu -->
+    <audio id="backsound" loop preload="auto">
+        <source src="2112 - Reality Club.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+
+        <!-- ================= HALAMAN 1 ================= -->
+        <div id="page1" class="page active">
+            <h1>Halo Petualang Favoritku! 🌿🐾</h1>
+            <p>Aku nemu sesuatu yang menarik pas lagi 'jalan-jalan' digital tadi. Tapi sebelum aku buka jendelanya, kamu harus janji dulu buat dengerin sampai akhir. Mau kan?</p>
+            <div class="btn-wrapper" id="wrapper-p1">
+                <button class="btn btn-love" onclick="nextPage(2)">Mau Banget! ✨</button>
+                <button class="btn" id="btn-no" onmouseover="moveButton()" onclick="moveButton()">Gak, mau ngasih makan kucing aja 🐱</button>
+            </div>
+        </div>
+
+        <!-- ================= HALAMAN 2 ================= -->
+        <div id="page2" class="page">
+            <h2>Spesial buat Si Pencinta Alam & POP MART! 🧸🍃</h2>
+            <p>Karena aku belum bisa bawa kamu ke puncak gunung atau pantai cantik hari ini, aku buatin kue virtual dulu. <br>
+            Ini <strong>Kue Cokelat berlapis Vanilla, plus selai Blueberry</strong> kesukaanmu, lengkap dengan replika mini <strong>POP MART Cry Baby Ocean Series (Limited Edition)</strong> di atasnya! 🌊🧜‍♀️</p>
+            <p style="font-size: 0.9rem; font-style: italic; color: #666; margin-bottom: 10px;">(Ketuk kuenya 3 kali buat tiup lilin dan menyalakan musiknya!)</p>
+            
+            <div class="cake-container">
+                <!-- MEMBACA FORMAT FILE .JPG JALUR RECOADING -->
+                <div style="position: absolute; top: -75px; left: 50%; transform: translateX(-50%); z-index: 5;">
+                    <img src="crybaby.png" alt="Cry Baby Ocean" style="width: 85px; height: auto; border-radius: 10px; box-shadow: 0px 4px 10px rgba(0,0,0,0.15);">
+                </div>
+                
+                <div class="interactive-cake" onclick="tapCake()" id="cake-el">🎂</div>
+            </div>
+            <h3 style="color: var(--btn-romantic); margin-top: 10px;" id="click-counter">Ketukan Lilin: 0/3</h3>
+        </div>
+
+        <!-- ================= HALAMAN 3 ================= -->
+        <div id="page3" class="page">
+            <h1 id="main-title">Selamat Ulang Tahun, Sayang! ❤️</h1>
+            <p style="font-style: italic; margin-bottom: 15px; font-size: 0.95rem;">Dari tempat paling indah di bumi, kamulah pemandangan favoritku. 🌌🌲</p>
+
+            <div class="media-gallery">
+                <img src="foto_dia.jpg" alt="Foto Terbaik Kamu" class="photo-frame">
+                <video controls poster="foto_dia.jpg" id="video">
+                    <source src="video_ucapan.mp4" type="video/mp4">
+                    Browser tidak mendukung pemutar video.
+                </video>
+            </div>
+
+            <div class="message-box">
+                <p>
+                    "Selamat ulang tahun untuk manusia paling baik yang dunianya penuh dengan cerita seru. Terima kasih ya sudah lahir ke bumi dan melangkah sejauh ini. Aku selalu kagum gimana kamu menikmati alam bebas, menyayangi kucing-kucing lucu di sekitar kita, dan senyum bahagia kamu tiap dapat koleksi POP MART baru."
+                </p>
+                <p style="margin-top: 10px;">
+                    "Semoga di usia yang baru ini, energimu gak pernah habis untuk menjelajahi tempat-tempat baru yang indah. Semoga harimu selalu manis senikmat cokelat dan blueberry segar. Di setiap perjalanan panjangmu ke depan, ingat ya kalau aku bakal selalu jadi rumah tempatmu pulang. Selamat merayakan hari jadimu, sayang. I love you."
+                </p>
+            </div>
+
+            <button class="btn btn-love" onclick="createFlurry()">Hujan Kebahagiaan! 🐾✨</button>
+            <button class="btn" onclick="toggleAudio()" id="audioBtn" style="background-color: var(--btn-secondary);">Mute Musik 🎵</button>
+        </div>
+
+    </div>
+
+    <!-- LOGIKA INTERAKTIF (JAVASCRIPT) -->
+    <script>
+        const audio = document.getElementById('backsound');
+        const audioBtn = document.getElementById('audioBtn');
+        const decorContainer = document.getElementById('decorations-container');
+        
+        let cakeClicks = 0;
+
+        function nextPage(pageNum) {
+            document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+            document.getElementById(`page${pageNum}`).classList.add('active');
+
+            if (pageNum === 3) { startCelebrationAnimation(); }
+        }
+
+        // Fungsi Tombol Menghindar
+        function moveButton() {
+            const btnNo = document.getElementById('btn-no');
+            btnNo.classList.add('absolute');
+            
+            const container = document.querySelector('.container');
+            const maxWidth = container.clientWidth - btnNo.clientWidth - 30;
+            const maxHeight = container.clientHeight - btnNo.clientHeight - 35;
+            
+            const randomX = Math.max(10, Math.floor(Math.random() * maxWidth));
+            const randomY = Math.max(10, Math.floor(Math.random() * maxHeight));
+            
+            btnNo.style.left = randomX + 'px';
+            btnNo.style.top = randomY + 'px';
+        }
+
+        // Fungsi Ketuk Kue (Sistem Pemancing Musik Paksa)
+        function tapCake() {
+            cakeClicks++;
+            const counterEl = document.getElementById('click-counter');
+            const cakeEl = document.getElementById('cake-el');
+            
+            counterEl.innerText = `Ketukan Lilin: ${cakeClicks}/3`;
+            cakeEl.style.transform = 'scale(1.2)';
+            setTimeout(() => cakeEl.style.transform = 'scale(1)', 120);
+
+            // Trik jitu: Nyalakan musik tepat di ketukan pertama dia menyentuh kue
+            if (cakeClicks === 1) {
+                playMusic();
+            }
+
+            for(let i=0; i<4; i++) { createFloatingItem(true); }
+
+            if (cakeClicks >= 3) {
+                cakeEl.innerText = "🎂✨💖";
+                counterEl.innerText = "Lilin ditiup! Ssshh... ✨";
+                setTimeout(() => { nextPage(3); }, 900);
+            }
+        }
+
+        function playMusic() {
+            audio.play().then(() => {
+                console.log("Musik Reality Club Berhasil Diputar!");
+            }).catch(e => {
+                console.log("Gagal otomatis, browser memblokir audio.");
+            });
+        }
+
+        function toggleAudio() {
+            if (audio.paused) {
+                audio.play();
+                audioBtn.innerHTML = "Mute Musik 🎵";
+            } else {
+                audio.pause();
+                audioBtn.innerHTML = "Play Musik 🎵";
+            }
+        }
+
+        function startCelebrationAnimation() {
+            for (let i = 0; i < 30; i++) {
+                setTimeout(() => createFloatingItem(false), i * 180);
+            }
+        }
+
+        function createFlurry() {
+            for (let i = 0; i < 15; i++) {
+                setTimeout(() => createFloatingItem(false), i * 120);
+            }
+        }
+
+        function createFloatingItem(isPop = false) {
+            const items = ['🐱', '💖', '🐾', '🌿', '🍫', '🍃', '✨', '🌸'];
+            const element = document.createElement('div');
+            element.classList.add('floating-item');
+            element.innerText = items[Math.floor(Math.random() * items.length)];
+            
+            if (isPop) {
+                element.style.left = (50 + (Math.random() * 20 - 10)) + 'vw';
+                element.style.bottom = '50vh';
+                element.style.animationDuration = (Math.random() * 1.2 + 0.8) + 's';
+            } else {
+                element.style.left = Math.random() * 100 + 'vw';
+                element.style.bottom = '-50px';
+                element.style.animationDuration = Math.random() * (6 - 4) + 4 + 's';
+            }
+            
+            element.style.fontSize = Math.random() * (30 - 16) + 16 + 'px';
+            decorContainer.appendChild(element);
+
+            setTimeout(() => { element.remove(); }, 5500);
+        }
+    </script>
+</body>
+</html>
